@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Rules イベントをトリガするフォームを定義する。
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function hayato_menu() {
+  $items = array();
+
+  $items['hayato/special'] = array(
+    'title' => 'Special process',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('hayato_special_button_form'),
+    'access arguments' => array('view content'),
+  );
+
+  return $items;
+}
+
+function hayato_special_button_form($form, $form_state) {
+
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Special button'),
+    ),
+  );
+
+  return $form;
+}
+
+function hayato_special_button_form_submit() {
+  global $user;
+
+  $messages = array();
+  $messages[] = t('Special 1 by @username.', array('@username' => $user->name));
+  $messages[] = t('Special 2 by @username.', array('@username' => $user->name));
+
+  rules_invoke_event('hayato_special_completed', $user, $messages);
+}

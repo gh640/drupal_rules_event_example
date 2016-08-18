@@ -1,0 +1,5 @@
+name = Hayato
+description = Provides samples of Rules events.
+core = 7.x
+package = hayato
+dependencies[] = rules
