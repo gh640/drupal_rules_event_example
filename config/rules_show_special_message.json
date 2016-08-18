@@ -1,0 +1,16 @@
+{ "rules_show_special_messages" : {
+    "LABEL" : "show special messages",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "REQUIRES" : [ "rules", "hayato" ],
+    "ON" : { "hayato_special_completed" : [] },
+    "DO" : [
+      { "LOOP" : {
+          "USING" : { "list" : [ "messages" ] },
+          "ITEM" : { "list_item" : "Current list item" },
+          "DO" : [ { "drupal_message" : { "message" : [ "list-item" ], "repeat" : "0" } } ]
+        }
+      }
+    ]
+  }
+}
